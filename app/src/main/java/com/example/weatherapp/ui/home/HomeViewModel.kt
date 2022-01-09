@@ -15,10 +15,6 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val repository: AppRepository): ViewModel() {
 
-    init {
-        getCityListsWithWeather()
-    }
-
     fun getCityListsWithWeather(): MutableLiveData<WeatherCityListsModel> {
 
         val responseBody = MutableLiveData<WeatherCityListsModel>()

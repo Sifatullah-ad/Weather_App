@@ -52,10 +52,6 @@ object AppModule {
                     }
                 addInterceptor(logging)
             }
-            //addInterceptor(NetworkConnectionInterceptor(application))
-            //addInterceptor(AuthInterceptor())
-            //addNetworkInterceptor(NetworkInterceptor())
-            //addInterceptor(OfflineInterceptor(application))
             cache(cache)
             readTimeout(30, TimeUnit.SECONDS)
             writeTimeout(1, TimeUnit.MINUTES)
@@ -68,8 +64,9 @@ object AppModule {
     fun provideRetrofitInstance(BASE_URL_WEATHER: String, gson: Gson, httpClient: OkHttpClient): ApiInterfaceWeather =
         Retrofit.Builder()
             .baseUrl(BASE_URL_WEATHER)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(NetworkResponseAdapterFactory())
+            .client(httpClient)
             .build()
             .create(ApiInterfaceWeather::class.java)
 }
