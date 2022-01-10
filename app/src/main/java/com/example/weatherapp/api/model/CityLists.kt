@@ -19,6 +19,8 @@ data class CityLists(
     var coord: Coord = Coord(),
     @SerializedName("main")
     var mainPart: MainPart = MainPart(),
+    @SerializedName("wind")
+    var windInfo: WindInfo = WindInfo(),
     @SerializedName("snow")
     var snow: String = "",
     @SerializedName("weather")

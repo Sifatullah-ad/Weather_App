@@ -40,7 +40,11 @@ class WeatherDetailsFragment : Fragment(), OnMapReadyCallback {
         binding?.cityName?.text = model.name
         binding?.weatherCondition?.text = model.weather.first().description
         binding?.humidity?.text = "Humidity: ${model.mainPart.humidity}"
-        //binding?.windSpeed?.text = "${model.wind.speed}"
+        binding?.windSpeed?.text = "Wind Speed: ${model.windInfo.speed}"
+        val calculateMaxTemp = (model.mainPart.tempMax - 273.15).toInt()
+        binding?.maxTemp?.text = "Max. Temp: $calculateMaxTemp ℃"
+        val calculateMinTemp = (model.mainPart.tempMin - 273.15).toInt()
+        binding?.minTemp?.text = "Min. Temp: $calculateMinTemp ℃"
     }
 
     private fun initMap() {
