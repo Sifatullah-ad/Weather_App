@@ -4,26 +4,16 @@ package com.example.weatherapp.api.model
 import com.google.gson.annotations.SerializedName
 
 data class CityLists(
-    @SerializedName("clouds")
-    var clouds: Clouds = Clouds(),
-    @SerializedName("coord")
-    var coord: Coord = Coord(),
     @SerializedName("dt")
     var dt: Int = 0,
     @SerializedName("id")
     var id: Int = 0,
-    @SerializedName("main")
-    var main: Main = Main(),
     @SerializedName("name")
     var name: String = "",
     @SerializedName("rain")
-    var rain: Any = Any(),
+    var rain: String = "",
     @SerializedName("snow")
-    var snow: Any = Any(),
-    @SerializedName("sys")
-    var sys: Sys = Sys(),
+    var snow: String = "",
     @SerializedName("weather")
-    var weather: List<Weather> = listOf(),
-    @SerializedName("wind")
-    var wind: Wind = Wind()
+    var weather: List<Weather> = listOf()
 )

@@ -3,7 +3,7 @@ package com.example.weatherapp.api.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Main(
+data class MainPart(
     @SerializedName("feels_like")
     var feelsLike: Double = 0.0,
     @SerializedName("grnd_level")

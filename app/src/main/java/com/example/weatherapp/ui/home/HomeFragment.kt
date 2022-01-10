@@ -8,9 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.weatherapp.R
 import com.example.weatherapp.api.model.CityLists
-import com.example.weatherapp.api.model.WeatherCityListsModel
 import com.example.weatherapp.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,6 +35,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        initClickLister()
         fetchCityListWithWeather()
 
     }
@@ -46,11 +48,21 @@ class HomeFragment : Fragment() {
         }
     }
 
+
+    private fun initClickLister() {
+
+        dataAdapter.onItemClicked = {
+            findNavController().navigate(R.id.nav_detail_weather)
+        }
+    }
+
+
     private fun fetchCityListWithWeather() {
         viewModel.getCityListsWithWeather().observe(viewLifecycleOwner, Observer { lists->
             dataList.clear()
             dataList.addAll(lists.list)
             Log.e("cityList", "$dataList , $lists")
+            dataAdapter.initLoad(dataList)
         })
     }
 
