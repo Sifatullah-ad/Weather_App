@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.weatherapp.R
+import com.example.weatherapp.api.model.CityLists
 import com.example.weatherapp.databinding.FragmentWeatherDetailsBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -34,7 +35,12 @@ class WeatherDetailsFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun initView() {
+        var model = arguments?.getParcelable("cityListModel") ?: CityLists()
 
+        binding?.cityName?.text = model.name
+        binding?.weatherCondition?.text = model.weather.first().description
+        binding?.humidity?.text = "Humidity: ${model.mainPart.humidity}"
+        //binding?.windSpeed?.text = "${model.wind.speed}"
     }
 
     private fun initMap() {

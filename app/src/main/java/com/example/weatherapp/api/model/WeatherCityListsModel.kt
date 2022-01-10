@@ -1,8 +1,10 @@
 package com.example.weatherapp.api.model
 
-
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class WeatherCityListsModel(
     @SerializedName("cod")
     var cod: String = "",
@@ -12,4 +14,4 @@ data class WeatherCityListsModel(
     var list: List<CityLists> = listOf(),
     @SerializedName("message")
     var message: String = ""
-)
+): Parcelable

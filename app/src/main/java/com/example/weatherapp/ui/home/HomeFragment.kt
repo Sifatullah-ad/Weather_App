@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -51,8 +52,11 @@ class HomeFragment : Fragment() {
 
     private fun initClickLister() {
 
-        dataAdapter.onItemClicked = {
-            findNavController().navigate(R.id.nav_detail_weather)
+        dataAdapter.onItemClicked = { model->
+            val bundle = bundleOf(
+                "cityListModel" to model
+            )
+            findNavController().navigate(R.id.nav_detail_weather, bundle)
         }
     }
 

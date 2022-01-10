@@ -11,7 +11,7 @@ class HomeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var cityLists: MutableList<CityLists> = mutableListOf()
 
-    var onItemClicked: (() -> Unit)? = null
+    var onItemClicked: ((model: CityLists) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding: ItemViewCityListWithWeatherBinding = ItemViewCityListWithWeatherBinding.inflate(
@@ -27,6 +27,9 @@ class HomeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val binding = holder.binding
 
             binding.cityName.text = model.name
+            binding.weatherCondition.text = model.weather.first().description
+            val calculateTemp = (model.mainPart.temp - 273.15).toInt()
+            binding.temperature.text = "$calculateTemp ℃"
 
         }
     }
@@ -39,7 +42,7 @@ class HomeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         init {
             binding.parent.setOnClickListener {
-                onItemClicked?.invoke()
+                onItemClicked?.invoke(cityLists[adapterPosition])
             }
         }
 

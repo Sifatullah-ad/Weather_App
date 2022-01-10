@@ -1,8 +1,11 @@
 package com.example.weatherapp.api.model
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class MainPart(
     @SerializedName("feels_like")
     var feelsLike: Double = 0.0,
@@ -20,4 +23,4 @@ data class MainPart(
     var tempMax: Double = 0.0,
     @SerializedName("temp_min")
     var tempMin: Double = 0.0
-)
+): Parcelable
