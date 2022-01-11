@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.weatherapp.R
 import com.example.weatherapp.api.model.CityLists
 import com.example.weatherapp.databinding.FragmentWeatherDetailsBinding
@@ -20,6 +21,8 @@ class WeatherDetailsFragment : Fragment(), OnMapReadyCallback {
     private var binding: FragmentWeatherDetailsBinding? = null
     private var map: GoogleMap? = null
 
+    private var model: CityLists = CityLists()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return FragmentWeatherDetailsBinding.inflate(inflater, container, false).also {
             binding = it
@@ -31,11 +34,13 @@ class WeatherDetailsFragment : Fragment(), OnMapReadyCallback {
 
         initMap()
         initView()
-
+        binding?.toolbar?.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun initView() {
-        var model = arguments?.getParcelable("cityListModel") ?: CityLists()
+        model = arguments?.getParcelable("cityListModel") ?: CityLists()
 
         binding?.cityName?.text = model.name
         binding?.weatherCondition?.text = model.weather.first().description
@@ -45,6 +50,8 @@ class WeatherDetailsFragment : Fragment(), OnMapReadyCallback {
         binding?.maxTemp?.text = "Max. Temp: $calculateMaxTemp ℃"
         val calculateMinTemp = (model.mainPart.tempMin - 273.15).toInt()
         binding?.minTemp?.text = "Min. Temp: $calculateMinTemp ℃"
+        val calculateTemp = (model.mainPart.temp - 273.15).toInt()
+        binding?.temperature?.text = "$calculateTemp ℃"
     }
 
     private fun initMap() {
@@ -55,7 +62,7 @@ class WeatherDetailsFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap?) {
         map = googleMap
         map?.let { mMap ->
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(23.4956324, 88.1007368), 7f))
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(model.coord.lat, model.coord.lon), 7f))
             with(mMap.uiSettings) {
                 isZoomControlsEnabled = false
                 isMyLocationButtonEnabled = true

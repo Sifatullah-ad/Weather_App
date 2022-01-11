@@ -1,7 +1,6 @@
 package com.example.weatherapp.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -65,7 +64,6 @@ class HomeFragment : Fragment() {
         viewModel.getCityListsWithWeather().observe(viewLifecycleOwner, Observer { lists->
             dataList.clear()
             dataList.addAll(lists.list)
-            Log.e("cityList", "$dataList , $lists")
             dataAdapter.initLoad(dataList)
         })
     }

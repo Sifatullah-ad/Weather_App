@@ -15,12 +15,17 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val repository: AppRepository): ViewModel() {
 
+    var latitude = 23.68
+    var longitude = 90.35
+    var count = 20
+    var appId = "e384f9ac095b2109c751d95296f8ea76"
+
     fun getCityListsWithWeather(): MutableLiveData<WeatherCityListsModel> {
 
         val responseBody = MutableLiveData<WeatherCityListsModel>()
 
         viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.getCityListsWithWeather(lat=23.68,lon=90.35,cnt=5,appid="e384f9ac095b2109c751d95296f8ea76")
+            val response = repository.getCityListsWithWeather(latitude, longitude, count, appId)
             withContext(Dispatchers.Main) {
                 when (response) {
                     is NetworkResponse.Success -> {
